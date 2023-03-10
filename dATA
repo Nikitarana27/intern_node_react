@@ -1,1 +1,81 @@
-1. Create a collection called “movies” and perform the queries listed below:1) Add 5 movies to the collection, every movie should include the following properties:namegenre(Horror,thriller,Science Fiction,Drama,Comedy,Art etc.,)rating (out of 10)language2) Write a query that returns all the movies3) Write a query that returns the three highest rated movies4) Update the rating of all Comedy movies5) Write a query to delete movie with least rating.2. Bug Tracker Application:Create a user form to add bug, it should contain following field:TitleDescriptionTime (should auto fill with system date &time)Date (should auto fill with system date &time)AssigneeAll Data created should be saved in MySQLBuild a programming logic such that every bug should be resolved in 3 days, after third day the unresolved bug should be highlightedAdd one more field to show the leftover days to fix the bug (Total time is 3 days from the day bug is assigned) 
+1. Create a collection called “movies” and perform the queries listed below:1) Add 5 movies to the collection, 
+every movie should include the following properties:namegenre(Horror,thriller,Science Fiction,Drama,Comedy,Art etc.,)
+rating (out of 10)language2) Write a query that returns all the movies3) Write a query that returns the three highest 
+rated movies4) Update the rating of all Comedy movies5) Write a query to delete movie with least rating.2. Bug Tracker
+Application:Create a user form to add bug, it should contain following field:TitleDescriptionTime
+(should auto fill with system date &time)Date (should auto fill with system date &time)AssigneeAll Data created should be 
+saved in MySQLBuild a programming logic such that every bug should be resolved in 3 days, after third day the unresolved
+bug should be highlightedAdd one more field to show the leftover days to fix the bug (Total time is 3 days from the day 
+bug is assigned) 
+
+
+https://www.npmjs.com/package/jsonwebtoken Use this module for authentication
+
+
+https://www.digitalocean.com/community/tutorials/how-to-add-login-authentication-to-react-applications
+
+https://www.freecodecamp.org/news/securing-node-js-restful-apis-with-json-web-tokens-9f811a92bb52/
+
+
+
+3. Authentication:
+
+As the APIs follow stateless protocol, authentication is used to server resource specific data.
+
+    Registration:
+
+    Create a simple form with the following fields and save into the database.
+        Firstname
+        Lastname
+        Email
+        Password
+        Confirmpassword
+    Perform validation of mandatory. Above all fields are mandatory. Password and Confirm password should be the same, else display the error.
+    On successful submission of the above fields, store the values in database.
+    Database fields to store the information.
+        recid : bigint(20)
+        firstname: varchar(100)
+        lastname:varchar(100)
+        email:varchar(100)
+        password:varchar(255)
+        accesstoken:varchar(255)
+        dateadded
+
+    Login:
+
+Once user is successfully registered, they can login and access further pages like dashboard, personal information, orders etc.
+
+        Create a Login form with following fields.
+
+        Email
+        Password
+
+Above fields are mandatory to fill.
+
+On submission of the above information, validate the entered details against the details which are stored in database.
+
+        If login details are invalid, then give appropriate message of “Invalid credentials.”
+        If it is valid, then, generate one Access token and store it in the “accesstoken” column of the database against the relevant user. This access token will be unique across the all users in database. That means It will be used for specific user’s identification.
+
+Next time, when user wants to access the dashboard/personal information/order page, then the request will contain the access token. We will send the access token as “Authorization” in header.
+
+At NodeJS side, the token will be validated first that comes in the header of the request. This token will be checked in the database to identify the user. If it is validated successfully, then only further code will get executed, else, response code will be set as 401 as Unauthorized access and error message will be appear on the browser.
+
+Once, access token validated successfully, then only the requested data will be served.
+
+
+
+2. Bug Tracker Application:
+
+    Create a user form to add bug, it should contain following field:
+
+    Title
+    Description
+    Time (should auto fill with system date &time)
+    Date (should auto fill with system date &time)
+    Assignee
+
+    All Data created should be saved in MySQL
+    Build a programming logic such that every bug should be resolved in 3 days, after third day the unresolved bug should be highlighted
+    Add one more field to show the leftover days to fix the bug (Total time is 3 days from the day bug is assigned)
+
