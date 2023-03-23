@@ -1,0 +1,16 @@
+.Home{
+    background: white;
+
+}
+
+.labels{
+    display: flex;
+    justify-content: center;
+}
+.labels label{
+    font-weight: bold;
+}
+.text{
+    text-align: right;
+}
+

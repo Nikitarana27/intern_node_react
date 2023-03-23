@@ -1,0 +1,10 @@
+.Register{
+    background: rgba(3, 174, 241, 0.61);
+    /* background-color: primary; */
+}
+
+form{
+    background-color: white;
+    border: 1px solid rgba(102, 102, 102, 0.61);
+}
+
