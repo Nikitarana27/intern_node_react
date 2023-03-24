@@ -11,13 +11,13 @@ export default function Edit() {
         setUserDetail(resp.data[0]);
     }
 
-    const handleAddUser = async (event) => {
+    const handleEditUser = async (event) => {
         event.preventDefault();
         // const form = event.target;
+        // console.log(event.target);
         const data = new FormData(event.target);
-        console.log(data);
-        const res = await axios.post("http://localhost:5000/handleAddUser", data);
-        if (res.data == "user added") {
+        const res = await axios.put("http://localhost:5000/handleEditUser/" + userDetail.id, data);
+        if (res.data == "user updated") {
             alert(res.data);
             history("/");
         }
@@ -26,6 +26,23 @@ export default function Edit() {
         }
     }
 
+    const handledisplay = (e) => {
+        e.preventDefault();
+        document.getElementById("display").style.visibility = "visible"
+    }
+    const handleChangeProfile = async (e) => {
+        e.preventDefault();
+        const data = new FormData(e.target);
+        const res = await axios.put("http://localhost:5000/handleChangeProfile/" + localStorage.getItem("ID"), data);
+        if(res.data == "profile changed"){
+            alert(res.data);
+            document.getElementById("display").style.visibility = "hidden";
+            defaultFunction();
+        }
+        else{
+            alert(res.data);
+        }
+    }
     useEffect(() => {
         defaultFunction();
     }, [])
@@ -43,38 +60,55 @@ export default function Edit() {
                                 {userDetail.firstname} {userDetail.lastname}</div>
 
                             <form className="d-flex">
-                                <Link className="btn btn-outline-success m-1" to="/">View Users</Link>
+                                <Link className="btn btn-outline-success m-1" to="/">Home</Link>
                             </form>
                         </div>
                     </nav>
 
                     <div>
                         <div className='m-4 '>
-                            <form onSubmit={handleAddUser} method="post">
-                                {/* code */}
-                                <div className="form-row d-flex justify-content-center">
-                                    <div className="form-group col-md-8">
-                                        <label for="code">code</label>
-                                        <input type="text" className="form-control" id="code" name="code" value={userDetail.code} placeholder="code should be unique" />
+                            <form onSubmit={handleChangeProfile}>
+                                <div className="form-row d-flex" style={{marginLeft: "200px"}}>
+                                    <div>
+                                        <img src={'./Images/' + userDetail.filename} style={{ height: "100px", width: "100px", borderRadius: "50px", border: "1px solid"}} />
+                                    </div>
+                                    <div className="form-group col-md-4 m-1">
+                                        <div>
+                                            <button className='btn btn-small btn-primary' onClick={handledisplay}>&#128393;</button>
+                                        </div><br></br>
+                                        <div style={{visibility: "hidden",display: "flex", height: "40px"}} id="display">
+                                        <label for="img"> Upload Photo</label>
+                                        <input type="file" className='form-control' id="img" name="img" file={'./Images/' + userDetail.filename} />
+                                        <input type="submit" className='btn  btn-primary' value="change"/>
+                                        </div>
                                     </div>
                                 </div>
+                            </form>
+                            <form onSubmit={handleEditUser}>
                                 {/* firstname lastname */}
                                 <div className="form-row d-flex justify-content-center">
-                                    <div className="form-group col-md-4 m-1 ">
-                                        <label for="firstname">First Name</label>
-                                        <input type="text" className="form-control" id="firstname" name="firstname" value={userDetail.firstname} placeholder="Enter First Name" />
+                                    <div className="form-group col-md-4 m-1">
+                                        <label for="code">code</label>
+                                        <input type="text" disabled className="form-control" id="code" name="code" defaultValue={userDetail.code} placeholder="code should be unique" />
                                     </div>
                                     <div className="form-group col-md-4 m-1 ">
-                                        <label for="lastname">Last Name</label>
-                                        <input type="text" className="form-control" id="lastname" name="lastname" value={userDetail.lastname} placeholder="Enter Last Name" />
+                                        <label for="firstname">First Name</label>
+                                        <input type="text" className="form-control" id="firstname" name="firstname" defaultValue={userDetail.firstname} placeholder="Enter First Name" />
                                     </div>
                                 </div>
                                 {/* email gender */}
                                 <div className="form-row d-flex justify-content-center">
+                                    <div className="form-group col-md-4 m-1 ">
+                                        <label for="lastname">Last Name</label>
+                                        <input type="text" className="form-control" id="lastname" name="lastname" defaultValue={userDetail.lastname} placeholder="Enter Last Name" />
+                                    </div>
                                     <div className="form-group col-md-4 m-1">
                                         <label for="email">Email</label>
-                                        <input type="text" className="form-control" name="email" id="email" value={userDetail.email} placeholder="Enter Email Here" />
+                                        <input type="text" className="form-control" name="email" id="email" defaultValue={userDetail.email} placeholder="Enter Email Here" />
                                     </div>
+                                </div>
+                                {/* country upload photo */}
+                                <div className="form-row d-flex justify-content-center">
                                     <div className="form-group col-md-4 m-1">
                                         <label for="Gender">Gender</label>
                                         <div className='form-control'>
@@ -82,9 +116,6 @@ export default function Edit() {
                                             <input type="radio" id="female" className='m-1' defaultChecked={userDetail.gender === "F"} name="gender" value="F" />Female
                                         </div>
                                     </div>
-                                </div>
-                                {/* country upload photo */}
-                                <div className="form-row d-flex justify-content-center">
                                     <div className="form-group col-md-4 m-1">
                                         <label for="country">Country</label>
                                         <select id="country" name="country" defaultValue={userDetail.country} className="form-control">
@@ -97,10 +128,10 @@ export default function Edit() {
                                             <option name="country" value="Canada" >Canada</option>
                                         </select>
                                     </div>
-                                    <div className="form-group col-md-4 m-1">
+                                    {/* <div className="form-group col-md-4 m-1">
                                         <label for="img"> Upload Photo</label>
                                         <input type="file" className='form-control' id="img" name="img" file={'./Images/' + userDetail.filename}/>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 {/* hobbies */}
                                 <div className="form-row d-flex justify-content-center">
@@ -117,13 +148,16 @@ export default function Edit() {
                                     </div>
                                 </div>
                                 <div className="form-row d-flex justify-content-center">
-                                    <button type="submit" className="btn btn-primary m-4" >Add User</button>
+                                    <button type="submit" className="btn btn-primary m-4" >Edit Profile</button>
                                 </div>
                             </form>
                         </div>
+
                     </div>
                 </>
             }
         </div>
     )
 }
+
+

@@ -56,16 +56,24 @@ export default function View() {
                             <td>{userDetail.gender == "M" ? <td>Male</td> : <td>Female</td>}</td>
                         </tr>
                         <tr>
-                            <th>Country</th>
-                            <td>{userDetail.country}</td>
-                        </tr>
-                        <tr>
                             <th>Hobbies</th>
                             <td>{userDetail.hobby}</td>
                         </tr>
                         <tr>
+                            <th>Country</th>
+                            <td>{userDetail.country}</td>
+                        </tr>
+                        <tr>
+                            <th>Starting Date</th>
+                            <td>{userDetail.dateadded}</td>
+                        </tr>
+                        <tr>
+                            <th>Last Update</th>
+                            <td>{userDetail.dateupdated}</td>
+                        </tr>
+                        <tr>
                             <th>Status</th>
-                            <td>{userDetail.state == "A" ? <td>Active</td> : <td>Inactive</td>}</td>
+                            <td>{userDetail.state == "Y" ? <td>Active</td> : <td>Inactive</td>}</td>
                         </tr>
                     </tbody>
                 </table>

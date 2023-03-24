@@ -9,8 +9,8 @@ const history = useNavigate();
  const handleAddUser = async (event) => {
     event.preventDefault();
     // const form = event.target;
+    // console.log();
     const data = new FormData(event.target);
-    console.log(data);
     const res = await axios.post("http://localhost:5000/handleAddUser",data);
     if(res.data == "user added"){
         alert(res.data);

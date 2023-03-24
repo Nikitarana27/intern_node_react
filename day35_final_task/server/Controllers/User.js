@@ -1,17 +1,81 @@
 import con from '../connection/connection.js'
 
-export const getUser = (req,res) => {
-    con.query(`select * from User_Management_35 where id = ${req.body.id}`,(err,result)=>{
-        if(err) throw err;
+export const getUser = (req, res) => {
+    con.query(`select * from User_Management_35 where id = ${req.body.id}`, (err, result) => {
+        if (err) throw err;
         res.send(result);
     })
 }
 
-export const getUsers = (req,res) => {
-    con.query(`select * from User_Management_35;`,(err,result)=>{
-        if(err) throw err;
+export const getUsers = (req, res) => {
+    con.query(`select id, code, concat(firstname," ",lastname) as name, email, gender, hobby, filename, country, state, dateadded, dateupdated, endeffdt, active from User_Management_35 where active = "yes";`, (err, result) => {
+        if (err) throw err;
         res.send(result);
     })
+}
+
+export const deleteUser = (req, res) => {
+    con.query(`update User_Management_35 set active = "no",endeffdt = concat(curdate()," ",curtime()) where id = ${req.body.ID};`, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    })
+}
+
+export const handleStatus = (req, res) => {
+    console.log(req.body);
+    if (req.body.State == "N") {
+        con.query(`update User_Management_35 set state = "Y"  where id = ${req.body.ID}`, (err, result) => {
+            if (err) throw err;
+            res.send("OKAY");
+        })
+    }
+    else {
+        con.query(`update User_Management_35 set state = "N" where id = ${req.body.ID}`, (err, result) => {
+            if (err) throw err;
+            res.send("OKAY");
+        })
+    }
+}
+
+export const handleChangeProfile = (req, res) => {
+    if (req.file == undefined) {
+        res.send("upload image");
+    }
+    else {
+        con.query(`update User_Management_35 
+        set filename = "${req.file.originalname}"
+        where id ="${req.params.id}";`, (err, result) => {
+            if (err) throw err;
+            res.send("profile changed");
+        })
+    }
+}
+
+export const handleEditUser = (req, res) => {
+            if (req.body.firstname == "" || !(/^[0-9a-zA-Z]*$/.test(req.body.firstname))) {
+                res.send("enter first name properly");
+            }
+            else if (req.body.lastname == "" || !(/^[0-9a-zA-Z]*$/.test(req.body.lastname))) {
+                res.send("Enter Last Name Properly");
+            }
+            else if (req.body.email == "" || !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email))) {
+                res.send("please enter email in proper formate");
+            }
+            else if (req.body.gender == undefined) {
+                res.send("please select your gender");
+            }
+            else if (req.body.country == "Choose Your Country...") {
+                res.send("please select your country");
+            }
+            else if (req.body.hobby == undefined) {
+                res.send("please select atleast one hobby");
+            }
+            else {
+                con.query(`update User_Management_35 set firstname = "${req.body.firstname}", lastname = "${req.body.lastname}",  email ="${req.body.email}", gender= "${req.body.gender}", hobby = "${req.body.hobby}", country="${req.body.country}", dateupdated = concat(curdate()," ",curtime()) where id ="${req.params.id}";`, (err, result) => {
+                    if (err) throw err;
+                    res.send("user updated");
+                })
+            }
 }
 
 export const handleAddUser = (req, res) => {
@@ -27,7 +91,7 @@ export const handleAddUser = (req, res) => {
                 count++;
             }
         }
-        if (count > 0) {
+        if (count == result.length) {
             if (req.body.code == "" || !(/^[0-9a-zA-Z]*$/.test(req.body.code))) {
                 res.send("enter Proper code");
             }
@@ -56,7 +120,7 @@ export const handleAddUser = (req, res) => {
                 res.send("please select atleast one hobby");
             }
             else {
-                con.query(`insert into User_Management_35 (id, code, firstname, lastname, email, gender, hobby, filename, country, state, dateadded, dateupdated, endeffdt) values ("","${req.body.code}","${req.body.firstname}","${req.body.lastname}","${req.body.email}","${req.body.gender}","${req.body.hobby}","${req.file.originalname}","${req.body.country}","A",curdate(),"","");`, (err, result) => {
+                con.query(`insert into User_Management_35 (id, code, firstname, lastname, email, gender, hobby, filename, country, state, dateadded, dateupdated, endeffdt) values ("","${req.body.code}","${req.body.firstname}","${req.body.lastname}","${req.body.email}","${req.body.gender}","${req.body.hobby}","${req.file.originalname}","${req.body.country}","N",concat(curdate()," ",curtime()),"","");`, (err, result) => {
                     if (err) throw err;
                     res.send("user added");
                 })
