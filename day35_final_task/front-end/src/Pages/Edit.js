@@ -5,44 +5,70 @@ import { Link, useNavigate } from 'react-router-dom'
 export default function Edit() {
     const history = useNavigate();
     const [userDetail, setUserDetail] = useState();
+
+    //get data of perticular user 
     const defaultFunction = async () => {
         const resp = await axios.post("http://localhost:5000/getUser", { id: localStorage.getItem('ID') });
         // console.log(resp.data);
         setUserDetail(resp.data[0]);
     }
 
+    // it will edit the info of user
+    // user side validation
     const handleEditUser = async (event) => {
         event.preventDefault();
-        // const form = event.target;
-        // console.log(event.target);
-        const data = new FormData(event.target);
-        const res = await axios.put("http://localhost:5000/handleEditUser/" + userDetail.id, data);
-        if (res.data == "user updated") {
+        console.log(event.target.hobby);
+        if (event.target.firstname.value == "" || !(/^[0-9a-zA-Z]*$/.test(event.target.firstname.value))) {
+            alert("enter first name properly");
+        }
+        else if (event.target.lastname.value == "" || !(/^[0-9a-zA-Z]*$/.test(event.target.lastname.value))) {
+            alert("Enter Last Name Properly");
+        }
+        else if (event.target.email.value == "" || !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(event.target.email.value))) {
+            alert("please enter email in proper formate");
+        }
+        else if (event.target.gender.value == "") {
+            alert("please select your gender");
+        }
+        else if (event.target.country.value == "Choose Your Country...") {
+            alert("please select your country");
+        }
+        else {
+            const data = new FormData(event.target);
+            const res = await axios.put("http://localhost:5000/handleEditUser/" + userDetail.id, data);
+            if (res.data == "user updated") {
+                alert(res.data);
+                history("/");
+            }
+            else {
+                alert(res.data);
+            }
+        }
+    }
+
+
+    //button to make visible the upload file input element
+    const handledisplay = (e) => {
+        e.preventDefault();
+        document.getElementById("display").style.visibility = "visible"
+    }
+
+    //change profile
+    const handleChangeProfile = async (e) => {
+        e.preventDefault();
+        const data = new FormData(e.target);
+        const res = await axios.put("http://localhost:5000/handleChangeProfile/" + localStorage.getItem("ID"), data);
+        if (res.data == "profile changed") {
             alert(res.data);
-            history("/");
+            document.getElementById("display").style.visibility = "hidden";
+            defaultFunction();
         }
         else {
             alert(res.data);
         }
     }
 
-    const handledisplay = (e) => {
-        e.preventDefault();
-        document.getElementById("display").style.visibility = "visible"
-    }
-    const handleChangeProfile = async (e) => {
-        e.preventDefault();
-        const data = new FormData(e.target);
-        const res = await axios.put("http://localhost:5000/handleChangeProfile/" + localStorage.getItem("ID"), data);
-        if(res.data == "profile changed"){
-            alert(res.data);
-            document.getElementById("display").style.visibility = "hidden";
-            defaultFunction();
-        }
-        else{
-            alert(res.data);
-        }
-    }
+    //used to run default function
     useEffect(() => {
         defaultFunction();
     }, [])
@@ -68,24 +94,24 @@ export default function Edit() {
                     <div>
                         <div className='m-4 '>
                             <form onSubmit={handleChangeProfile}>
-                                <div className="form-row d-flex" style={{marginLeft: "200px"}}>
+                                <div className="form-row d-flex" style={{ marginLeft: "200px" }}>
                                     <div>
-                                        <img src={'./Images/' + userDetail.filename} style={{ height: "100px", width: "100px", borderRadius: "50px", border: "1px solid"}} />
+                                        <img src={'./Images/' + userDetail.filename} style={{ height: "100px", width: "100px", borderRadius: "50px", border: "1px solid" }} />
                                     </div>
                                     <div className="form-group col-md-4 m-1">
                                         <div>
                                             <button className='btn btn-small btn-primary' onClick={handledisplay}>&#128393;</button>
                                         </div><br></br>
-                                        <div style={{visibility: "hidden",display: "flex", height: "40px"}} id="display">
-                                        <label for="img"> Upload Photo</label>
-                                        <input type="file" className='form-control' id="img" name="img" file={'./Images/' + userDetail.filename} />
-                                        <input type="submit" className='btn  btn-primary' value="change"/>
+                                        <div style={{ visibility: "hidden", display: "flex", height: "40px" }} id="display">
+                                            <label for="img"> Upload Photo</label>
+                                            <input type="file" className='form-control' id="img" name="img" file={'./Images/' + userDetail.filename} />
+                                            <input type="submit" className='btn  btn-primary' value="change" />
                                         </div>
                                     </div>
                                 </div>
                             </form>
                             <form onSubmit={handleEditUser}>
-                                {/* firstname lastname */}
+                                {/* code firstname */}
                                 <div className="form-row d-flex justify-content-center">
                                     <div className="form-group col-md-4 m-1">
                                         <label for="code">code</label>
@@ -96,7 +122,7 @@ export default function Edit() {
                                         <input type="text" className="form-control" id="firstname" name="firstname" defaultValue={userDetail.firstname} placeholder="Enter First Name" />
                                     </div>
                                 </div>
-                                {/* email gender */}
+                                {/*lastname  email*/}
                                 <div className="form-row d-flex justify-content-center">
                                     <div className="form-group col-md-4 m-1 ">
                                         <label for="lastname">Last Name</label>
@@ -107,7 +133,7 @@ export default function Edit() {
                                         <input type="text" className="form-control" name="email" id="email" defaultValue={userDetail.email} placeholder="Enter Email Here" />
                                     </div>
                                 </div>
-                                {/* country upload photo */}
+                                {/*gender country*/}
                                 <div className="form-row d-flex justify-content-center">
                                     <div className="form-group col-md-4 m-1">
                                         <label for="Gender">Gender</label>
@@ -128,10 +154,6 @@ export default function Edit() {
                                             <option name="country" value="Canada" >Canada</option>
                                         </select>
                                     </div>
-                                    {/* <div className="form-group col-md-4 m-1">
-                                        <label for="img"> Upload Photo</label>
-                                        <input type="file" className='form-control' id="img" name="img" file={'./Images/' + userDetail.filename}/>
-                                    </div> */}
                                 </div>
                                 {/* hobbies */}
                                 <div className="form-row d-flex justify-content-center">

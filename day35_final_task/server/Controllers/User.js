@@ -1,14 +1,14 @@
 import con from '../connection/connection.js'
 
 export const getUser = (req, res) => {
-    con.query(`select * from User_Management_35 where id = ${req.body.id}`, (err, result) => {
+    con.query(`select id, code,firstname,lastname, email, gender, hobby, filename, country, state, date_format(dateadded,"%d/%m/%Y %h:%i:%s") as dateadded,date_format(dateupdated,"%d/%m/%Y %h:%i:%s") as dateupdated, endeffdt, active from User_Management_35 where id = ${req.body.id} ;`, (err, result) => {
         if (err) throw err;
         res.send(result);
     })
 }
 
 export const getUsers = (req, res) => {
-    con.query(`select id, code, concat(firstname," ",lastname) as name, email, gender, hobby, filename, country, state, dateadded, dateupdated, endeffdt, active from User_Management_35 where active = "yes";`, (err, result) => {
+    con.query(`select id, code, concat(firstname," ",lastname) as name, email, gender, hobby, filename, country, state, dateadded, dateupdated, endeffdt, active from User_Management_35 where active = "yes" order by firstname,dateupdated;;`, (err, result) => {
         if (err) throw err;
         res.send(result);
     })

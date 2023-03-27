@@ -75,7 +75,7 @@ app.post("/ReadData",(req,res)=>{
     try {
         const data = fs.readFileSync(`./userFiles/${Folder_name}/${File_name}.txt`, 'utf8');
         res.send(data);
-        console.log(data);
+        // console.log(data);
       } catch (err) {
         console.error(err);
       }
@@ -85,23 +85,25 @@ app.post("/ReadData",(req,res)=>{
 app.post("/DeleteFile",(req,res)=>{
     const Folder_name = req.body.FolderName;
     const File_name = req.body.FileName;
-    try {
-        fs.stat(`./userFiles/${Folder_name}/${File_name}.txt`, function (err, stats) {
-            console.log(stats);//here we got all information of file in stats variable
-         
-            if (err) {
-                return console.error(err);
-            }
-            
-            fs.unlink(`./userFiles/${Folder_name}/${File_name}.txt`,function(err){
-                 if(err) return console.log(err);
-                 console.log('file deleted successfully');
-                 res.send("1");
-            });  
-        });
-    } catch (err) {
-        console.error(err);
+
+        try {
+            fs.stat(`./userFiles/${Folder_name}/${File_name}.txt`, function (err, stats) {
+                // console.log(stats);//here we got all information of file in stats variable
+             
+                if (err) {
+                    return console.error(err);
+                }
+                
+                fs.unlink(`./userFiles/${Folder_name}/${File_name}.txt`,function(err){
+                     if(err) return console.log(err);
+                     console.log('file deleted successfully');
+                     res.send("1");
+                });  
+            });
+        } catch (err) {
+            console.error(err);
     }
+    
 });
 
 
@@ -110,7 +112,7 @@ app.post("/DisplayFiles",(req,res)=>{
     try {
         fs.readdir(`./userFiles/${Folder_name}`, (error, files) => {
             if (error) console.log(error)
-            console.log(files);
+            // console.log(files);
             res.send(files);
             // files.forEach( file => File = {...File, file})
             })

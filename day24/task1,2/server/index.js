@@ -25,7 +25,7 @@ app.post("/primeNumber", (req, res) => {
       }
     }
 
-    console.log(temp);
+    // console.log(temp);
     //sending response
     res.send(temp);
 });
