@@ -39,7 +39,7 @@ export default function Cart() {
     //if user want to subtract the same item
     const handleQuantitySubtract = async(pid,quantity,cid) =>{
         await axios.post("http://localhost:5000/QuantitySubtract",{Pid : pid, Quantity : quantity , Cid: cid});
-        // MyCart();
+        MyCart();
      }
      //if user want to remove item
      const handleRemove = async(id) => {

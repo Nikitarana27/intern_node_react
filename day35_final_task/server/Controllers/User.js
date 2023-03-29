@@ -120,7 +120,7 @@ export const handleAddUser = (req, res) => {
                 res.send("please select atleast one hobby");
             }
             else {
-                con.query(`insert into User_Management_35 (id, code, firstname, lastname, email, gender, hobby, filename, country, state, dateadded, dateupdated, endeffdt) values ("","${req.body.code}","${req.body.firstname}","${req.body.lastname}","${req.body.email}","${req.body.gender}","${req.body.hobby}","${req.file.originalname}","${req.body.country}","N",concat(curdate()," ",curtime()),"","");`, (err, result) => {
+                con.query(`insert into User_Management_35 (id, code, firstname, lastname, email, gender, hobby, filename, country, state, dateadded, dateupdated, endeffdt, active) values ("","${req.body.code}","${req.body.firstname}","${req.body.lastname}","${req.body.email}","${req.body.gender}","${req.body.hobby}","${req.file.originalname}","${req.body.country}","N",concat(curdate()," ",curtime()),"","","yes");`, (err, result) => {
                     if (err) throw err;
                     res.send("user added");
                 })

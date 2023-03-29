@@ -10,12 +10,11 @@ const PORT =process.env.PORT || 5000;
 con.connect(()=>{
     console.log("connected");
 })
+
 app.get("/ShowMovies",(req,res)=>{
         var sql = "select * from movies_35;";
         con.query(sql, function (err, result) {
           if (err) throw err;
-        //   console.log("Table created");
-          console.log(result);
           res.send(result);
         });
   });
@@ -24,8 +23,6 @@ app.get("/HighestRating",(req,res)=>{
     var sql = "select name from movies_35 order by ratings desc limit 3;";
     con.query(sql, function (err, result) {
       if (err) throw err;
-    //   console.log("Table created");
-      console.log(result);
       res.send(result);
     });
 });
@@ -34,8 +31,6 @@ app.post("/UpdateRating",(req,res)=>{
   var sql = `select * from movies_35 where Movie_Type = "comedy";`;
     con.query(sql, function (err, result) {
       if (err) throw err;
-    //   console.log("Table created");
-      console.log(result);
       res.send(result);
     });
 });
@@ -43,14 +38,10 @@ app.post("/UpdateRating",(req,res)=>{
 app.post("/UpdateRate", (req,res) => {
   var input = req.body.number;
   var name = req.body.name;
-  console.log(input , name)
+  // console.log(input , name)
   var sql = `update movies_35 set ratings = `+input+` where name = "`+name+`";`;
-  // update movies_35 set ratings = 5 where name = "Dhamaal" and Movie_Type = "comedy";" and Movie_Type = "comedy";
     con.query(sql, function (err, result) {
       if (err) throw err;
-      console.log("Table updated");
-      // console.log(result);
-      // res.send(result);
     });
   res.send("okay");
 });

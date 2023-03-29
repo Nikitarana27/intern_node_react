@@ -12,12 +12,7 @@ export const createEmployee = (req, res) => {
     const date = req.body.date;
     const address = req.body.address;
     const gender = req.body.gender;
-    // con.query(`select Email from customers_35;`, function (err, result) {
-    //     // if (err) throw err;
-    //         for (let i = 0; i < result.length; i++) {
-    //             if (result[i].Email === email) {
-    //                 res.send("email alreasy exist");
-    //             }
+
     const sql1 = `select * from customers_35 where Email = "${email}";`
     con.query(sql1, function (err, result) {
         // if (err) throw err;
@@ -36,12 +31,6 @@ export const createEmployee = (req, res) => {
     })
 
 
-    // const sql = `insert into customers_35 (id,Firstname,Lastname,Email,passwords,Mobile,Dob,Address,Gender) values ("","${fname}","${lname}","${email}","${pwd}","${mobile}","${date}","${address}","${gender}");`
-    //                 con.query(sql, function (err, result) {
-    //                     if (err) throw err;
-
-    //                  res.send("customer added successfully");
-    //                 })
 }
 
 export const createtoken = (req, res) => {

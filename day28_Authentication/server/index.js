@@ -64,11 +64,11 @@ app.post("/login", (req, res) => {
     });
 })
 
-app.post("/getdata", (req, res) => {
-    const email = req.body.Email;
-    console.log(email);
+// app.post("/getdata", (req, res) => {
+//     const email = req.body.Email;
+//     // console.log(email);
 
-})
+// })
 
 app.get('/profile', function (req, res) {
     // console.log("hello")

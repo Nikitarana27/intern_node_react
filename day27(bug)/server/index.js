@@ -21,7 +21,6 @@ app.post("/bugs",(req,res)=>{
     values ("${title}","${description}",curtime(),curdate() ,"${assignee}");`
     con.query(sql, function (err, result) {
         if (err) throw err;
-        // console.log(result);
       });
 res.send("okay");
 });
@@ -30,7 +29,7 @@ app.get("/ShowBugs",(req,res) => {
     const sql1 = "SELECT *,DATEDIFF(CURDATE(),Date_) as diff FROM bugs_35;"
     con.query(sql1, function (err, result) {
         if (err) throw err;
-        console.log(result);
+        // console.log(result);
         res.send(result);
       });
 })

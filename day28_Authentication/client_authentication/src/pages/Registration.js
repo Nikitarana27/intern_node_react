@@ -87,7 +87,7 @@ export default function Registration() {
         <div className='Register'>
 
             <div style={{ display: "flex", justifyContent: "center" }} >
-                <form className='w-50' style={{ margin: "10%" }}>
+                <form className='w-50' style={{ margin: "7.5%" }}>
                     <fieldset className='border p-3'>
                         <legend className='text-center fw-bold text-success' >Register</legend>
 
@@ -131,8 +131,8 @@ export default function Registration() {
 
                         <div className='text-center'>
                             <button className='btn btn-success m-1' onClick={handleSubmit}>Register</button><br></br>
-                            <span className='fs-6'>if already register do login</span><br></br>
-                            <button className='btn btn-success m-1' onClick={() => history("/Login")} >Login</button>
+                            <span style={{fontSize: "15px"}} onClick={() => history("/Login")} className='btn'>if already have and account?</span><br></br>
+                            {/* <button className='btn btn-success m-1' onClick={() => history("/Login")} >Login</button> */}
                         </div>
                     </fieldset>
                 </form>

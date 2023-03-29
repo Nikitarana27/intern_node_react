@@ -71,7 +71,9 @@ export default function Home() {
                 //if parent
                 const res = await axios.post("http://localhost:5000/ParentEnter", { Cname: data.cname });
                 alert(res.data);
-                setData("");
+                // setData("");
+                document.getElementById('cname').value="";
+                document.getElementById('cselection').value="";
                 document.getElementById('Parent').checked = false;
                 document.getElementById('Child').checked = false;
                 defaultFunction();

@@ -2,7 +2,6 @@ import exceljs from 'exceljs'
 import con from '../connection/connection.js'
 
 export const handleImport = async (req, res) => {
-    // console.log("hello");
     const newData = [];
     //create excel workbook for reading file 
     const workbook = new exceljs.Workbook();
