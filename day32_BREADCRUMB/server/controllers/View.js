@@ -46,3 +46,13 @@ const deleteData = async (child_id) => {
             return result ;
         })
   };
+
+
+
+ export const UpdateData = (req,res) => {
+    console.log(req.body);
+    con.query(`update breadcrumb_35 set child="${req.body.PERSON}" where id = ${req.body.ID};`,(err,result)=>{
+        if(err) throw err;
+        res.send("data updated");
+    })
+  }

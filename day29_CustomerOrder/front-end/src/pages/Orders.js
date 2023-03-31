@@ -82,7 +82,11 @@ export default function Orders() {
                                             <tr>
                                                 <td>{items.order_id}</td>
                                                 <td>{items.Data_of_order}</td>
-                                                <td width='10%'><button className=" btn-primary btn-sm " onClick={() => handleorder(items.order_id)} >view</button></td>
+                                                <td width='10%'><button className=" btn-primary btn-sm " onClick={() => handleorder(items.order_id)} >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                                                    </svg></button></td>
                                             </tr>
                                         </tbody>
                                     )
@@ -96,8 +100,8 @@ export default function Orders() {
                 {singleOrderStatus ?
                     <div className='d-flex justify-content-center' style={{ flexDirection: "column" }}>
                         <div className="m-4" style={{ fontSize: "large", borderRadius: "10px" }} >
-                        <div>Order ID: {singleOrder[0].order_id}</div>
-                        <div>Order Data: {singleOrder[0].Data_of_order}</div>
+                            <div>Order ID: {singleOrder[0].order_id}</div>
+                            <div>Order Data: {singleOrder[0].Data_of_order}</div>
                             <table className='table table-striped' >
                                 <thead>
                                     <tr>

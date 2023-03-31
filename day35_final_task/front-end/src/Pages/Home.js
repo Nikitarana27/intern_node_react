@@ -52,8 +52,10 @@ export default function Home() {
 
   //used for deleting user
   const handleDelete = async (id) => {
-    await axios.post("http://localhost:5000/deleteUser", { ID: id });
-    defaultFunction();
+    if(window.confirm("Are you sure you want too delete") == true) {
+      await axios.post("http://localhost:5000/deleteUser", { ID: id });
+      defaultFunction();
+    }
   }
 
 
@@ -281,7 +283,7 @@ export default function Home() {
                   <td>{items.gender}</td>
                   <td>{items.country}</td>
                   {/* <td>{items.filename}</td> */}
-                  <td><img src={'./Images/' + items.filename} style={{ height: "100px", width: "100px", borderRadius: "30px" }} /></td>
+                  <td><img src={'./Images/' + items.filename} alt="😊I am not available" style={{ height: "100px", width: "100px", borderRadius: "30px" }} /></td>
                   <td>{items.hobby}</td>
                   {items.state == "Y" ?
                     <td>

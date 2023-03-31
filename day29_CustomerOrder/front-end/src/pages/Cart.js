@@ -1,23 +1,23 @@
-import React, { useState , useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Cart() {
     const [cartData, setCartdata] = useState("");
     const [total, setTotal] = useState("");
     const history = useNavigate();
-        //this will not allow user to access this page without login
+    //this will not allow user to access this page without login
     useEffect(() => {
-      if(localStorage.getItem('Token')){
-        history("/Cart");
-      }
-      else{
-        history("/Login");
-      }
-    
-  
+        if (localStorage.getItem('Token')) {
+            history("/Cart");
+        }
+        else {
+            history("/Login");
+        }
+
+
     }, [history]);
-    
+
     //default function
     const MyCart = async () => {
         const resp = await axios.get("http://localhost:5000/MyCart", { headers: { tkn: localStorage.getItem('Token') } });
@@ -32,47 +32,47 @@ export default function Cart() {
 
 
     //if user want to add the same item
-    const handleQuantityAdd = async(pid,quantity,cid) =>{
-       await axios.post("http://localhost:5000/QuantityAdd",{Pid : pid, Quantity : quantity , Cid: cid});
-       
+    const handleQuantityAdd = async (pid, quantity, cid) => {
+        await axios.post("http://localhost:5000/QuantityAdd", { Pid: pid, Quantity: quantity, Cid: cid });
+
     }
     //if user want to subtract the same item
-    const handleQuantitySubtract = async(pid,quantity,cid) =>{
-        await axios.post("http://localhost:5000/QuantitySubtract",{Pid : pid, Quantity : quantity , Cid: cid});
+    const handleQuantitySubtract = async (pid, quantity, cid) => {
+        await axios.post("http://localhost:5000/QuantitySubtract", { Pid: pid, Quantity: quantity, Cid: cid });
         MyCart();
-     }
-     //if user want to remove item
-     const handleRemove = async(id) => {
-        await axios.post("http://localhost:5000/handleRemove",{Id : id});
+    }
+    //if user want to remove item
+    const handleRemove = async (id) => {
+        await axios.post("http://localhost:5000/handleRemove", { Id: id });
     }
     //if user submit order 
-     const handleOrderSubmit = async () =>{
+    const handleOrderSubmit = async () => {
         // console.log(cartData);
-        if(cartData == ""){
+        if (cartData == "") {
             alert("Please enter item into cart");
             history("/Home");
         }
-        else{
-            await axios.post("http://localhost:5000/OrderSubmit",{datas: cartData});
+        else {
+            await axios.post("http://localhost:5000/OrderSubmit", { datas: cartData });
 
         }
-            
-     }
-     useEffect(() =>{
+
+    }
+    useEffect(() => {
         MyCart();
-    },[handleQuantitySubtract,handleQuantityAdd,handleRemove])
+    }, [handleQuantitySubtract, handleQuantityAdd, handleRemove])
 
     //call default function
-    useEffect(()=>{
+    useEffect(() => {
         MyCart();
-    },[])
+    }, [])
     return (
         <div>
             <nav className="navbar navbar-dark bg-dark">
                 <div className="container-fluid">
                     <p className="navbar-brand m-1">My Cart...</p>
                     <form className="d-flex">
-                            <Link className="btn btn-outline-success m-1" to="/Home">Home</Link>
+                        <Link className="btn btn-outline-success m-1" to="/Home">Home</Link>
                     </form>
                 </div>
             </nav>
@@ -84,8 +84,6 @@ export default function Cart() {
                             <td scope="col" className='bg-dark text-light'>Brand Name</td>
                             <td scope="col" className='bg-dark text-light'>Price</td>
                             <td scope="col" className='bg-dark text-light'>Quantity</td>
-                            <td scope="col" className='bg-dark text-light'>add item</td>
-                            <td scope="col" className='bg-dark text-light'>Remove item</td>
                             <td scope="col" className='bg-dark text-light'>delete item</td>
 
                             {/* <td className='bg-dark text-light fs-bold'>Status</td>
@@ -98,15 +96,19 @@ export default function Cart() {
                             return (
                                 <tbody className='fw-bold'>
                                     <tr>
-                                        <td>{items.pname}</td>
-                                        <td>{items.brand}</td>
-                                        <td>{items.Price}.00/-</td>
-                                        <td>{items.quantity}</td>
-                                        <td width='10%'><button className=" btn-danger btn-sm " onClick={() => handleQuantityAdd(items.pid,items.quantity,items.cid)} >+</button></td>
-                                        <td width='10%'><button className=" btn-danger btn-sm " onClick={() => handleQuantitySubtract(items.pid,items.quantity,items.cid)}>-</button></td>
+                                        <td><span style={{ color: "black" }}>{items.pname}</span></td>
+                                        <td><span style={{ color: "black" }}>{items.brand}</span></td>
+                                        <td><span style={{ color: "black" }}>{items.Price}.00/-</span></td>
+                                        <td>
+                                            <button className="btn-success btn-sm " style={{borderRadius: "15px",  borderColor: "black"}} onClick={() => handleQuantityAdd(items.pid, items.quantity, items.cid)} >+</button> &nbsp;
+                                            <span style={{ color: "black" }}>{items.quantity}</span> &nbsp;
+                                            <button className=" btn-danger btn-sm " style={{borderRadius: "15px", borderColor: "black"}} onClick={() => handleQuantitySubtract(items.pid, items.quantity, items.cid)}>-</button>
+                                        </td>
+                                        {/* <td width='10%'><button className=" btn-danger btn-sm " onClick={() => handleQuantityAdd(items.pid,items.quantity,items.cid)} >+</button></td> */}
+                                        {/* <td width='10%'></td> */}
                                         <td width='10%'><button className=" btn-danger btn-sm " onClick={() => handleRemove(items.id)}>x</button></td>
 
-                                        
+
                                     </tr>
                                 </tbody>
                             )
@@ -126,7 +128,7 @@ export default function Cart() {
                 </table>
             </div>
             <div className='text-center'>
-            <Link to="/Home"><button className="btn btn-dark m-1" onClick={handleOrderSubmit}>Order Submit</button></Link>
+                <Link to="/Home"><button className="btn btn-dark m-1" onClick={handleOrderSubmit}>Order Submit</button></Link>
             </div>
         </div>
     )
