@@ -8,8 +8,8 @@ export default function Header() {
         <div className="container-fluid">
           <p className="navbar-brand m-1">User Management...</p>
           <form className="d-flex">
-            <Link className="btn btn-outline-success m-1" to="/">View Users</Link>
-            <Link className="btn btn-outline-success m-1" to="/AddUser">Add user</Link>
+            <Link title="view user" className="btn btn-outline-success m-1" to="/">View Users</Link>
+            <Link title="add user" className="btn btn-outline-success m-1" to="/AddUser">Add user</Link>
           </form>
         </div>
       </nav>
