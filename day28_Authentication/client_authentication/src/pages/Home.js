@@ -61,15 +61,18 @@ export default function Home() {
         <div className =' fs-large d-flex justify-content-center' style={{margin: "6%"}}>
             <table className='border-none'>
                 <tr>
-                    <th className='text p-1'>First Name:</th>
+                    <th className='text-left p-1'>First Name</th>
+                    <td>:</td>
                     <td id="FirstName" className='p-1'></td>
                 </tr>
                 <tr>
-                    <th className='text p-1'>Last Name:</th>
+                    <th className='text-left p-1'>Last Name</th>
+                    <td>:</td>
                     <td id="LastName" className='p-1' ></td>
                 </tr>
                 <tr>
-                    <th className='text p-1'>Email:</th>
+                    <th className='text-left p-1'>Email</th>
+                    <td>:</td>
                     <td id="Email" className='p-1'></td>
                 </tr>
             </table>

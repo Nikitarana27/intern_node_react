@@ -18,7 +18,9 @@ export default function View() {
     const qrcode = (
             <QRCodeCanvas
               id="qrCode"
-              value={"http://localhost:3000/View"+ url}
+            //   value={"http://localhost:3000/View"+ url}
+            // value={"https://www.geeksforgeeks.org"}
+            value={"https://github.com/Nikitarana27"}
               size={200}
               bgColor={"#ffffff"}
               level={"H"}

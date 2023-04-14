@@ -43,7 +43,7 @@ export default function Registration() {
             else{
                 if(register.LastName === "" || !(/^[A-Za-z]*$/.test(register.LastName))){
                     document.getElementById("lastName").setAttribute("style","visibility: visible");
-                    document.getElementById("lastName").innerHTML = "enter Firstname properly..";
+                    document.getElementById("lastName").innerHTML = "enter last name properly..";
                     setTimeout(hide,1000);
                 }
                 else{
